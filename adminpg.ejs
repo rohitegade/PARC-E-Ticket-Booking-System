@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<title>Welcome Admin</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="all" /><!-- for testimonials -->
+
+    <!-- css files -->
+
+    <link rel="stylesheet" href="/../css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="/../css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+
+
+
+    <style>
+        
+        body{
+            background: white;
+        }
+
+        ul {
+            height: 100%;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: none;
+        }
+
+        #main
+        {
+            position: fixed;
+            width: 100%;
+            height: 500px;
+        }
+        #top{
+            height:100%;
+            width: 100%;
+            overflow-y: scroll;
+        }
+        #left{
+            background: none;
+            width: 55%;
+            height: 500px;
+            overflow-y: scroll;
+        }
+        #right{
+            width: 30%;
+            margin-top: -50%;
+            margin-left: 53%;
+        }
+
+        select{
+            padding: 5px;
+
+        }
+        input,select{
+            background: white;
+            border-radius: 2em;
+            border: none;
+            margin: 5px;
+            padding: 2px;
+
+            color: black;
+            font-size: 1.1em;
+            padding-left: 1.5em;
+
+            outline: none;
+            box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px hsl(155, 14%, 76%)
+        }
+
+        .ncb{
+
+            background-color: #06b393;
+
+            border-top: 1px solid white;
+            border-right: 1px solid white;
+            border-bottom: 1px solid white;
+            border-left: 1px solid white;
+            border-radius: 18px;
+            -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+            box-shadow: inset 0 1px 0 0 #aec3e5;
+            color: black;
+            padding: 8px 0;
+            text-align: center;
+            text-transform: uppercase;
+            width: 150px;
+            color: black;
+
+        }
+        .bbc{
+            background-color: #5cb85c;
+            border-top: 1px solid white;
+            border-right: 1px solid white;
+            border-bottom: 1px solid white;
+            border-left: 1px solid white;
+            border-radius: 2px;
+            -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+            box-shadow: inset 0 1px 0 0 #aec3e5;
+            color: black;
+            padding: 8px 0;
+            text-align: center;
+            text-transform: uppercase;
+            width: 150px;
+            color: black;
+
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div id="main">
+
+
+<div class="w3layouts-banner-top">
+    <div class="banner-dott">
+
+<%if (viewbuses==true) { %>
+<div id="left">
+    <table   style="width: 100%;">
+        <tr style="outline: thin solid"><td><b>Route No</b></td>
+            <td><b>Source</b></td>
+            <td><b>Destination</b></td>
+        </tr>
+    <% for(var i=0; i < data.length; i++) { %>
+    <tr style="outline: thin solid">
+        <td><%= data[i].rtno %></td>
+        <td><%= data[i].src %></td>
+        <td><%= data[i].des %></td>
+        <td><a href="/admin/showbusdetails/?rtno=<%= data[i].rtno %>">
+                <input type="submit" value="Show Details" class="ncb"></a></td>
+    </tr>
+    <% } %>
+</table>
+    </div>
+</div>
+</div>
+
+<div id="right">
+    <form method="post" action="/admin/addbus">
+        <table class="banner-form-agileinfo" align="center" width="70%">
+                        <tr><td>Route No:<input placeholder="Route No." type="text" name="rtno"></td></tr>
+    <tr><td>Source:<input placeholder="Enter Source" type="text" name="src" list="allstops"></td><tr>
+                            <tr><td>Destination:<input placeholder="Enter Destination" type="text" name="des" list="allstops"></td></tr>
+                <datalist id="allstops">
+                    <% for(var i=0; i < stops.length; i++) { %>
+                    <option value="<%=stops[i].stpnm%>"> <%=stops[i].stpnm%> </option>
+                    <% } %>
+                </datalist>
+    <tr><td><input type="submit" style="margin-left:30%; width: 50%;" value="Add Bus"></td></tr>
+</table>
+    </form>
+
+
+    <form method="post" action="/admin/removebus">
+        <table style="margin-top: -116%;margin-left: 87%;" class="banner-form-agileinfo"  align="center" width="50%">
+            <tr>
+                <td>Route No:</td>
+                <td>
+                    <select name="rtno">
+                        <option value="0" selected>(please select:)</option>
+                        <% for(var i=0; i < data.length; i++) { %>
+                        <option value="<%=data[i].rtno%>"> <%=data[i].rtno%> </option>
+                        <% } %>
+                    </select>
+                </td>
+                </tr>
+            <tr><td></td><td><input type="submit" style="margin-left: 30%; width: 60%;" value="Remove Bus"><td></tr>
+
+        </table>
+    </form>
+    </div>
+<% } %>
+
+    <%if (viewcustomers==true) { %>
+
+<div id="top">
+
+<table align="center" style="font-size: 18px;" cellspacing="20px" width="100%">
+    <tr style="outline: thin solid">
+        <td><b>Id</b></td>
+        <td><b>Name</b></td>
+        <td><b>Mobile number</b></td>
+        <td><b>Email</b></td>
+        <td><b>Address</b></td>
+        <td><b>Gender</b></td>
+    </tr>
+    <% for(var i=0; i < data.length; i++) { %>
+    <tr style="outline: thin solid">
+        <td><%= data[i].id%></td>
+        <td><%= data[i].cust_name%></td>
+        <td><%= data[i].mob%></td>
+        <td><%= data[i].email%></td>
+        <td><%= data[i].addr%></td>
+        <td><%= data[i].gender%></td>
+
+    </tr>
+    <% } %>
+</table>
+                    </div>
+<% } %>
+
+
+
+
+
+<%if (viewconductors==true) { %>
+<div id="top">
+<table align="center" style="font-size: 18px;" cellspacing="20px">
+
+    <tr style="outline: thin solid">
+        <td><b>Id</b></td>
+        <td><b>Name</b></td>
+        <td><b>Mobile number</b></td>
+        <td><b>Email</b></td>
+        <td><b>Age</b></td>
+        <td><b>Gender</b></td>
+        <td><b>Address</b></td>
+        <td><b>Join-Date</b></td>
+    </tr>
+    <% for(var i=0; i < data.length; i++) { %>
+    <tr style="outline: thin solid">
+        <td><%=data[i].cid %></td>
+        <td><%=data[i].cname %></td>
+        <td><%=data[i].mob %></td>
+        <td><%=data[i].email %></td>
+        <td><%=data[i].age %></td>
+        <td><%=data[i].gender %></td>
+        <td><%=data[i].addr %></td>
+        <td><%=data[i].joindate%></td>
+    </tr>
+    <% }%>
+
+
+    <div>
+
+       <a href="/admin/editconductor" > <input type="submit" value="Edit Conductor" style="position: fixed;left: 85%; top: 90%" class="bbc" > </a>
+    </div>
+
+</table>
+        </div>
+
+
+<% } %>
+</div>
+
+</body>
+
+</html>

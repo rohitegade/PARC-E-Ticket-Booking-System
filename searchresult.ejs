@@ -1,0 +1,116 @@
+
+    <style>
+
+        .panel-heading{
+            background-color: white;
+
+        }
+
+        .panel-heading span {
+            margin-top: -20px;
+            font-size: 15px;
+        }
+
+        #bottom
+        {
+            width: 100%;
+            height: auto;
+            background-color: transparent;
+        }
+        table ,td,th {
+            border: 2px solid white;
+        }
+        table
+        {
+            border-collapse: collapse;
+            width: 100%;
+        }
+    </style>
+
+    <body>
+    <div id="bottom" class="container" style="color: white">
+
+    <%if(result==true) {%>
+    <% for(var i = 0;i < res1.length;i++) { %>
+    <% for(var j = 0;j < res2.length;j++) { %>
+    <% if(res1[i].rtno==res2[j].rtno) {%>
+    <% rt=res1[i].rtno%>
+    <% srcsrno=res1[i].srno%>
+    <% dessrno=res2[j].srno%>
+
+    <div id="l1" style="margin-top: 10%;">
+        <%=res1[i].rtno%>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#87CEEB;">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#<%=rt%>">Show Stops
+                            <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span></a>
+                    </div>
+
+                   <div id="down1">
+                    <div id="<%=rt%>" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <% for (var c=0;c<stops.length;c++) {%>
+                            <% if(rt==stops[c].rtno) { %>
+                            <table><tr><%=stops[c].srno%><%=stops[c].stpnm%></tr></table>
+                            <%}%>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div id="l2">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color:#87CEEB;">
+                        <div class="panel-title">
+                            <a data-toggle="collapse" href="#<%=rt+500%>">Show Departure Time from Source
+                                <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span></a>
+                        </div>
+                        <div id="<%=rt+500%>" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <% for (var c=0;c<data1.length;c++) {%>
+                                <% if(rt==data1[c].rtno) { %>
+                                <table><tr><%=data1[c].tm%></tr> </table>
+                                <%}%>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="l3">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color:#87CEEB;">
+                            <div class="panel-title">
+                                <a data-toggle="collapse" href="#<%=rt+1000%>">Show Depature Time From Destination
+                                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span></a>
+                            </div>
+                        </div>
+                        <div id="<%=rt+1000%>" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <% for (var c=0;c<data2.length;c++) {%>
+                                <% if(rt==data2[c].rtno) { %>
+                                <table> <tr><%=data2[c].tm%></tr></table>
+                                <%}%>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%}%>
+            <%}%>
+            <%}%>
+            <%}%>
+        </div>
+    </div>
+</body>
+</div>

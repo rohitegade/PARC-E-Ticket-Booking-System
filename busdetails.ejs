@@ -1,0 +1,282 @@
+<html>
+<body>
+<head>
+
+
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="all" /><!-- for testimonials -->
+
+    <!-- css files -->
+
+    <link rel="stylesheet" href="/../css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="/../css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+    <style>
+        #main{
+            position: fixed;
+            height:0%;
+            width:90%;
+        }
+        #left{
+            width: 55%;
+            overflow-y: scroll;
+            height: 500px;
+        }
+
+        #ltop{
+            width: 100%;
+            height: 10%;
+
+        }
+        #lbottom{  width: 100%;
+            height: 100%;
+
+        }
+        #right{
+            width: 25%;
+            height: 100%;
+            margin-top: -35%;
+            margin-left: 67%;
+        }
+        #right2 {
+            width: 30%;
+            height: 100%;
+            margin-left: 58%;
+        }
+        #a
+        {
+            width:50%;
+        }
+        #r
+        {
+            width: 50%;
+            margin-left: 88%;
+            margin-top: -79%;
+        }
+
+
+        ul {
+            list-style-type: none;
+            margin: 10px;
+            padding: 0;
+            overflow: hidden;
+            background-color: transparent;
+
+        }
+
+        li {
+            margin-left: 50px;
+            float: left;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        label
+        {
+            color: black;
+        }
+        #ccb{
+            background-color: #06b393;
+            border-top: 1px solid white;
+            border-right: 1px solid white;
+            border-bottom: 1px solid white;
+            border-left: 1px solid white;
+            border-radius: 2px;
+            -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+            box-shadow: inset 0 1px 0 0 #aec3e5;
+            color: black;
+            padding: 8px 0;
+            text-align: center;
+            text-transform: uppercase;
+            width: 150px;
+            color: black;
+
+        }
+        input{
+            background: white;
+            border-radius: 0.3em;
+            border-color: #5e5e5e;
+            margin: 5px;
+            /*padding: 2px;*/
+
+            color: black;
+            /*font-size: 1.1em;*/
+            padding-left: 1.5em;
+
+            outline: none;
+            box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px hsl(155, 14%, 76%)
+        }
+
+
+    </style>
+</head>
+
+<div id="main">
+<div id="left">
+            <div id="ltop">
+                <table align="center" cellspacing="10px" style="color: black">
+                <td><span><b style="font-size:25px"><%= head[0].rtno %></b></span></td><td><span><b style="font-size:25px"><%= head[0].src %></b></span></td> <td><span><b style="font-size:25px"><%= head[0].des %></b></span> </td></b>
+                </table>
+            </div>
+    <div id="lbottom">
+            <ul>
+        <li><a href="/admin/showbusdetails/?rtno=<%= head[0].rtno %>"> Bus Stops
+            </a></li>
+        <li>            <a href="/admin/showbusids/?rtno=<%= head[0].rtno %>">Bus id's
+            </a>        </li>
+
+
+        <li>            <a href="/admin/showbustimings/?rtno=<%= head[0].rtno %>">Timings
+            </a>        </li>
+    </ul>
+
+    <table align="center" cellspacing="30px"  style="color: black">
+        <%if (stops==true) { %>
+        <tr><td><b>SrNo</b></td>
+            <td><b>Stop Name</b></td>
+        </tr><% for(var i=0; i < data.length; i++) { %><tr>
+        <td><%= data[i].srno%></td>
+        <td><%= data[i].stpnm%></td></tr>
+                        <% } %>
+                     <% } %>
+
+        <%if (ids==true) { %>
+        <tr><td><b>SrNo</b></td>
+            <td><b>Bus Id</b></td></tr>
+        <tr><% for(var i=0; i < data.length; i++) { %><tr>
+            <td><%= i+1%></td>
+            <td><%= data[i].busid%></td>
+        </tr>
+        <% } %>
+        <% } %>
+        <%if (timings==true) { %>
+
+        <tr><td><h3>Source Depature Times</h3></td></tr>
+           <tr><td><b>SrNo</b></td>
+            <td><b>Time</b></td>
+            <td><b>Bus ID</b></td></tr>
+   <% for(var i=0; i < data2.length; i++) { %><tr>
+            <td><%= i+1%></td>
+            <td><%= data2[i].tm%></td>
+            <td><%= data2[i].busid%></td></tr>
+               <% }%>
+
+               <tr><td><h3>Destination Depature Times</h3></td></tr>
+                   <tr><td><b>SrNo</b></td>
+                   <td><b>Time</b></td>
+                   <td><b>Bus ID</b></td></tr>
+               <% for(var i=0; i < data.length; i++) { %>
+        <tr><td><%= i+1%></td>
+            <td><%= data[i].tm%></td>
+            <td><%= data[i].busid%></td></tr>
+        <% } %>
+        <% } %>
+    </table>
+        </div>
+</div>
+
+
+    <div id="right">
+    <%if (stops==true) { %>
+
+    <form method="post" action="/admin/addstop">
+        <table>
+            <tr><td><label>Stop Name:</label><input type="text" name="stpnm" placeholder="enter stop name"></td></tr>
+            <tr><td><button type="submit" id="ccb">Add Stop</button></td></tr>
+            <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+            <input type="hidden" name="srno" value="<%= data.length+1%>">
+        </table>
+
+    </form>
+    <form method="post" action="/admin/removestop">
+        <table>
+            <tr><td><label>Stop Name:</label><input type="text" name="stpnm" placeholder="enter stop name"></td></tr>
+            <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+            <tr><td><button type="submit" id="ccb">Remove Stop</button></td></tr>
+        </table>
+    </form>
+    <%}%>
+
+
+    <%if (ids==true) { %>
+        <form method="post" action="/admin/addbusid">
+            <table>
+                <tr><td><label>Bus ID:</label><input type="text" name="busid"></td></tr>
+                <tr><td><button type="submit" id="ccb">Add ID</button></td></tr>
+                <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+            </table>
+
+        </form>
+        <form method="post" action="/admin/removebusid">
+            <table>
+                <tr><td><label>Bus ID:</label><input type="text" name="busid"></td></tr>
+                <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+                <tr><td><button type="submit" id="ccb">Remove ID</button></td></tr>
+            </table>
+        </form>
+        <%}%>
+    </div>
+
+    <div id="right2">
+        <div id="a">
+        <%if (timings==true) { %>
+        <form method="post" action="/admin/addsrctime">
+                <table><tr><td><label>Add Source Time:</label><input type="text" name="tm"></td></tr>
+                    <tr><td><select name="busid" style="color: black">
+                                <option value="0" selected>(please select:)</option>
+                                <% for(var i=0; i < busids.length; i++) { %>
+                                <option value="<%=busids[i].busid%>"><%=busids[i].busid%></option>
+                                <label> <%=busids[i].busid%></label>
+                                <% } %>
+                            </select></td></tr>
+                    </tr>
+                    <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+                    </tr>
+                    <tr><td><button type="submit" id="ccb">Add Time</button></td>
+                </table>
+
+            </form>
+
+            <form method="post" action="/admin/adddestime">
+                <table>
+                    <tr>
+                        <td><label>Add Destination Time:</label><input type="text" name="tm"></td></tr>
+                    <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+                    </tr>
+                    <tr><td><select name="busid">
+                                <option value="0" selected>(please select:)</option>
+                                <% for(var i=0; i < busids.length; i++) { %>
+                                <option value="<%=busids[i].busid%>"><%=busids[i].busid%> </option>
+                                <label> <%=busids[i].busid%></label>
+                                <% } %>
+                            </select></td></tr>
+                    <tr><td><button type="submit" id="ccb">Add Time</button></td></tr>
+                </table>
+            </form>
+        </div>
+
+        <div id="r">
+            <form method="post" action="/admin/removesrctime">
+                <table>
+                    <tr><td><label>Remove Source Time:</label><input type="text" name="tm"></td></tr>
+                    <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+                    </tr>
+                    <tr><td><button type="submit" id="ccb">Remove Time</button></td></tr>
+                </table>
+            </form>
+
+            <form method="post" action="/admin/removedestime">
+                <table>
+                    <tr><td><label>Remove Destionation Time:</label><input type="text" name="tm"></td></tr>
+                    <input type="hidden" name="rtno" value="<%= head[0].rtno%>">
+                    <tr><td><button type="submit" id="ccb">Remove Time</button></td></tr>
+                </table>
+            </form>
+            <%}%>
+                </div>
+    </div>
+            </div>
+</body>
+</html>

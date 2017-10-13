@@ -1,0 +1,120 @@
+<body>
+<style>
+    #sub{
+        position: absolute;
+        width: 300px;
+        height: 400px;
+        left: 35%;
+        top: 20px;
+        background: transparent;
+        border-radius: 25px;
+        border: 1px solid #000;
+    }
+    #llb{
+        background-color: #06b393;
+        border-top: 1px solid white;
+        border-right: 1px solid white;
+        border-bottom: 1px solid white;
+        border-left: 1px solid white;
+        border-radius: 2px;
+        -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+        box-shadow: inset 0 1px 0 0 #aec3e5;
+        color: black;
+        padding: 8px 0;
+        text-align: center;
+        text-transform: uppercase;
+        width: 150px;
+        color: black;
+
+</style>
+
+<div id="main">
+<form method="post" action="/customer/book">
+    <div id="sub">
+        <h1><b><label style="margin-left: 25%">My Ticket</label></b></h1>
+        <label style="margin-left: 25%"><%=cust_name%><label><br/>
+                <label style="margin-left: 25%"><%=data.src%> To <%=data.des%></label><br/>
+                <label style="margin-left: 25%"> Rout No:<%=data.rtno%></label><br/>
+                    <label style="margin-left: 25%">Stages:<%=data.dist%></label><br/>
+
+        <%var ticketid="";%>
+        <% for (var letter = 1; letter <= 8; letter++) {%>
+       <% ticketid += letter % 2 == 0 ? String.fromCharCode(Math.random() * (91 - 65) + 65) : Math.ceil(Math.random() * 9); }%>
+        <%var ticketcost=0;%>
+        <%if (data.dist<=5) ticketcost=5; else if(data.dist<=10) ticketcost=10; else if(data.dist<=15) ticketcost=15; else if(data.dist<=20) ticketcost=20; else if(data.dist<=25) ticketcost=25; else if(data.dist<=30) ticketcost=30; else if(data.dist<=35) ticketcost=35; else if(data.dist<=40) ticketcost=40; else if(data.dist<=45) ticketcost=45; else if(data.dist<=50) ticketcost=50;%>
+                <label style="margin-left: 25%">Ticket Cost:<%=ticketcost%></label>
+        <img id="brcode" style="margin-left: 25%" src="https://chart.googleapis.com/chart?cht=qr&chl=<%=ticketid%>&chs=100x100&chld=L|0"><br/>
+
+        <select style="margin-left: 25%" name='day' id='day'>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+            <option value='11'>11</option>
+            <option value='12'>12</option>
+            <option value='13'>13</option>
+            <option value='14'>14</option>
+            <option value='15'>15</option>
+            <option value='16'>16</option>
+            <option value='17'>17</option>
+            <option value='18'>18</option>
+            <option value='19'>19</option>
+            <option value='20'>20</option>
+            <option value='21'>21</option>
+            <option value='22'>22</option>
+            <option value='23'>23</option>
+            <option value='24'>24</option>
+            <option value='25'>25</option>
+            <option value='26'>26</option>
+            <option value='27'>27</option>
+            <option value='28'>28</option>
+            <option value='29'>29</option>
+            <option value='30'>30</option>
+            <option value='31'>31</option>
+        </select>
+        <select name='month' id='month'>
+            <option value='01'>Jan</option>
+            <option value='02'>Feb</option>
+            <option value='03'>Mar</option>
+            <option value='04'>Apr</option>
+            <option value='05'>May</option>
+            <option value='06'>Jun</option>
+            <option value='07'>Jul</option>
+            <option value='08'>Aug</option>
+            <option value='09'>Sep</option>
+            <option value='10'>Oct</option>
+            <option value='11'>Nov</option>
+            <option value='12'>Dec</option>
+        </select>
+        <select name='year' id='year'>
+            <option value='2017'>2017</option>
+            <option value='2018'>2018</option>
+            <option value='2019'>2019</option>
+            <option value='2020'>2020</option>
+            <option value='2021'>2021</option>
+            <option value='2022'>2022</option>
+            <option value='2023'>2023</option>
+            <option value='2024'>2024</option>
+            <option value='2025'>2025</option>
+            <option value='2026'>2026</option>
+            <option value='2027'>2027</option>
+        </select><br/><br/>
+
+
+        <input type="hidden" value="<%=data.id%>" name="id">
+        <input type="hidden" value="<%=data.src%>" name="src">
+        <input type="hidden" value="<%=data.des%>" name="des">
+        <input type="hidden" value="<%=ticketcost%>" name="tcost">
+        <input type="hidden" value="<%=ticketid%>" name="tid">
+
+        <input style="margin-left:25%" type="submit" value="Book My Ticket" id="llb">
+    </div>
+</form>
+</div>
+</body>

@@ -1,0 +1,209 @@
+<head>
+
+    <title>PARC E-Ticket System</title>
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="css/font-awesome.css">
+
+
+
+</head>
+<style>
+    #MAIN
+    {
+        height: 650px;
+        position: fixed;
+        width: 100%;
+        overflow-y: scroll;
+    }
+    body{
+        background-image: url("/../images/b2.jpg");
+    }
+    label{
+        color:white;
+    }
+
+</style>
+
+<body>
+<div id="MAIN">
+<div class="header">
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <!--<img src="/../images/logo.png">-->
+            <h1><a href="homepg"> PARC E-Ticket System</a></h1>
+        </div>
+    <div class="top-nav-text">
+        <div class="nav-contact-w3ls"><p id="demo" ></p></div>
+    </div>
+
+</div>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>$(document).ready(function() {
+            $("#reg").click(function () {
+                $("#regdiv").css("display", "block");
+            });
+            $("#register #cancel").click(function () {
+                $(this).parent().parent().hide();
+            });
+        });
+    </script>
+
+        <script>
+            document.getElementById("demo").innerHTML = Date();
+        </script>
+
+
+
+    <div class="callbacks_container">
+                <div class="w3layouts-banner-top w3layouts-banner-top1">
+                    <div class="banner-dott">
+                        <div class="container">
+                            <div class="slider-info">
+                                <div class="col-md-8">
+                                    <div id="left">
+                                    <div id="top">
+                                        <form method="post" action="/searchmybus">
+                                            <div class="banner-form-agileinfo2">
+
+                                            <table style= "margin-left: 10px">
+                                                <tr><td><label><p>From</p></label></td><td><input type="text" class="hvr-shutter-in-vertical" name="src" placeholder="Enter source name" list="allstops">
+                                                    </td>
+                                                    <td><label><p>&nbsp;To</p></label></td><td><input type="text" class="hvr-shutter-in-vertical" name="des" placeholder="Enter destination name" list="allstops">
+                                                    </td>
+                                                    <datalist id="allstops">
+                                                        <% for(var i=0; i < stops.length; i++) { %>
+                                                        <option value="<%=stops[i].stpnm%>"> <%=stops[i].stpnm%> </option>
+                                                        <% } %>
+                                                    </datalist>
+
+                                                    <td><input type="submit" value="Search"></input></td>
+                                                </tr>
+                                            </table>
+                                                <%if(result==true){%>
+                                                <iframe src="<%=url+'?src='+src+'&des='+des%>" style="height: 100%; width: 100%; overflow-y: scroll;"></iframe>
+                                                <%}%>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="banner-form-agileinfo">
+                                        <div id="right2">
+                                        <h5><span>Login-Form</span></h5>
+
+                                        <form method="post" action="/login">
+                                            <input id="option" type="radio" name="actype" value="conductor">
+                                            <label for="option"><p>Conductor</p></label>
+                                            <input id="option" type="radio" name="actype" value="customer" checked>
+                                            <label for="option"><p>Customer</p></label><br>
+                                            <label><p>Username</p></label>
+                                            <input type="text" placeholder="Enter Username" name="user" required>
+                                            <label><p>Password</p></label>
+                                            <input type="password" placeholder="Enter Password" name="pwd" required>
+                                            <input type="submit" class="hvr-shutter-in-vertical" value="Login"></input>
+                                        </form>
+					                    <input id="reg" type="submit"class="hvr-shutter-in-vertical" value="Sign Up"></input>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+</div>
+</div>
+
+
+				<div id="regdiv">
+					<div class="col-md-4">
+                                        <form method="post" action="/register" name="regform" id="register" onsubmit="return validateForm();">
+                                    <div class="banner-form-agileinfo">
+ 						            <h5><span>Registration Form</span></h5>
+                                        <label><p>Name:</p> <span>*</span></label>
+                                            <input type="text" name="cust_name" placeholder="Name"/><br/>
+                                        <label><p>Email:</p> <span>*</span></label>
+                                            <input type="text" name="email" placeholder="Email"/><br/>
+                                        <label><p>Contact No:</p> <span>*</span></label>
+                                            <input type="number" name="mob" placeholder="10 digit Mobile no."/><br/>
+                                        <label><p>Gender:</p> <span>*</span></label>
+                                            <input id="option" type="radio" name="gender" value="Male" >
+                                            <label for="option">  Male</label>
+                                            <input id="option" type="radio" name="gender" value="Female">
+                                            <label for="option">  Female</label>
+                                        <label><p>Address:</p> <span>*</span></label>
+                                            <textarea name=addr placeholder="Address......."></textarea><br/>
+                                        <label><p>Password:</p></label>
+                                            <input type="password" name="pwd" placeholder="************"/><br/>
+                                            <input type="submit" class="hvr-shutter-in-vertical" value="Register"></input>
+                                            <br>
+                                            <br>
+                                            <input type="submit" class="hvr-shutter-in-vertical" value="Cancel"></input>
+                                    </div>
+                                        </form>
+
+
+
+
+
+					    </div>
+                </div>
+
+
+<%if (reg==true) { %>
+<script>
+    alert("<%=error%>");
+</script>
+<%}%>
+
+<%if (reg==false) { %>
+<script>
+    alert("<%=error%>");
+</script>
+<%}%>
+
+<%if (login=="failed") { %>
+<script>
+    alert("<%=error%>");
+</script>
+<%}%>
+
+<%if (login=="nothing") { %>
+<%}%>
+
+<%if (reg=="nothing") { %>
+<%}%>
+
+
+<script>
+    function validateForm() {
+        var x = document.forms["regform"]["email"].value;
+        var atpos = x.indexOf("@");
+        var dotpos = x.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+            alert("Not a valid e-mail address");
+            return false;
+        }
+        if ( ( form.gender[Male].checked == false ) && ( form.gender[Female].checked == false ) )
+        {
+            alert ( "Please choose your Gender: Male or Female" );
+            return false;
+        }
+
+        }
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<head>
+<link rel="stylesheet" href="/../css/flexslider.css" type="text/css" media="all" />
+
+<link rel="stylesheet" href="/../css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
+<link rel="stylesheet" href="/../css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+<link rel="stylesheet" href="/../css/font-awesome.css">
+</head>
+
+<style>
+
+    #main{
+        height: 500px;
+        position:fixed;
+        width: 100%;
+    }
+    #le
+    {
+        height: 100%;
+        overflow-y: scroll;
+    }
+    #r
+    {
+    margin-left: 60%;
+margin-top: -44%;
+    }
+    #a
+    {
+    margin-left: 10%;
+    }
+    </style>
+
+
+
+
+<body>
+<div id="main">
+    <div id="le">
+    <form method="post" action="/admin/addcon" id="add">
+        <table id="a" class="banner-form-agileinfo">
+            <tr><td><h5>Add Conductor:</h5></td></tr>
+            <tr><td><p>Conductor ID:<input  type="text" name="cid"></p></td></tr>
+            <tr><td><p>Name:<input type="text" name="cname"></p></td></tr>
+            <tr><td><p>Mobile No:<input type="text" name="mob"></p></td></tr>
+            <tr><td><p>Email ID:<input  type="text" name="email"></p></td></tr>
+            <tr><td><p>Age:<input type="text" name="age"></p></td></tr>
+            <tr><td><p>Gender:<input type="text" name="gender"></p></td></tr>
+            <tr><td><p>Address:<input type="text" name="addr"></p></td></tr>
+            <tr><td><p><input type="submit" value="Add Conductor"></p></td></tr>
+        </table>
+    </form>
+
+    <form method="post" action="/admin/removecon">
+            <table id="r" class="banner-form-agileinfo">
+                <tr><td><h5>Remove Conductor:</h5></td></tr>
+                <tr><td><p>Conductor ID:<input type="text" name="cid"></p></td></tr>
+                <tr><td><p><input type="submit" value="Remove Conductor"></p></td></tr>
+            </table>
+    </form>
+</div>
+</div>
+</body>

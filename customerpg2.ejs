@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>PARC E-Ticket System</title>
+    <link rel="stylesheet" href="/../css/flexslider.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="/../css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
+    <link rel="stylesheet" href="/../css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="/../css/font-awesome.css">
+
+
+
+    <style>
+        iframe
+        {
+            background-border: none;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="header">
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <h1><a href="homepg"> PARC E-Ticket System</a></h1>
+        </div>
+        <div class="top-nav-text">
+            <div class="nav-contact-w3ls"><p id="demo" ></p></div>
+        </div>
+
+
+        <li class="nav navbar-nav navbar-left">
+            <li></li><a class="hvr-underline-from-center active"><p style="font-size:25px;margin-top:20px; font-family:sans-serif; color: white"  >Welcome <%=cust_name%></p></a></li>
+        <a href="/">  <img aria-hidden="true" src="/../images/logout.png" style="height: 50px;width:50px;margin-left: 98% ;margin-right:20px;margin-top: -20px;"></a>
+        <div class="nav-contact-w3ls">
+            </div>
+
+
+    </div>
+        </ul>
+
+</div>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/customer/get/?get=search&id=<%=id%>&cust_name=<%=cust_name%>">Search My Bus</a>
+    <a href="/customer/get/?get=record&id=<%=id%>&cust_name=<%=cust_name%>">My Tickets</a>
+    <a href="/customer/get/?get=timetable&id=<%=id%>&cust_name=<%=cust_name%>">Time Table</a>
+</div>
+
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;Menu</span>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+<iframe  height ="510px" width="100%"; src="<%=url+'?id='+id%>" name="iframe_a"></iframe>
+</body>
+</html>
+<script>
+    document.getElementById("demo").innerHTML = Date();
+</script>

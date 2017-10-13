@@ -1,0 +1,293 @@
+
+<html>
+<head>
+    <title>PARC Public Transports</title>
+    <link rel="stylesheet" href="/../css/flexslider.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="/../css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
+    <link rel="stylesheet" href="/../css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="/../css/font-awesome.css">
+
+
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+
+    .panel-heading{
+        background-color: white;
+    }
+
+    .panel-heading span {
+        margin-top: -20px;
+        font-size: 15px;
+    }
+    #top
+    {
+        width: 100%;
+        height: 10%;
+        background-color: crimson;
+    }
+    #bottom
+    {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+    }
+    #llb {
+        background-color: #06b393;
+        border-top: 1px solid white;
+        border-right: 1px solid white;
+        border-bottom: 1px solid white;
+        border-left: 1px solid white;
+        border-radius: 2px;
+        -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+        box-shadow: inset 0 1px 0 0 #aec3e5;
+        color: black;
+        padding: 8px 0;
+        text-align: center;
+        text-transform: uppercase;
+        width: 150px;
+        color: black;
+    }
+
+
+
+</style>
+
+
+
+
+<%if(bookticket==true) {%>
+
+
+
+        <div class="banner-dott">
+            <div class="container">
+
+                    <div class="col-md-8">
+                        <div class="banner-form-agileinfo2">
+<div id="top">
+    <form method="post" action="/customer/searchmybus">
+
+    <table>
+        <tr><td><p>From</p><input class="hvr-shutter-in-vertical" type="text" name="src" list="allstops" placeholder="Enter Source">
+            </td>
+            <td><p>To</p><input class="hvr-shutter-in-vertical" type="text" name="des" list="allstops" placeholder="Destination">
+            </td>
+            <datalist id="allstops">
+                <% for(var i=0; i < stops.length; i++) { %>
+                <option value="<%=stops[i].stpnm%>"> <%=stops[i].stpnm%> </option>
+                <% } %>
+            </datalist>
+            <input type="hidden" value="<%=id%>" name="id">
+
+            <td><button type="submit" id="llb">Search</button></td>
+        </tr>
+    </table>
+    </form>
+        </div>
+    </div>
+</div>
+
+<div id="bottom" class="container">
+        <%var rt=0;%>
+        <%var srcsrno=0;%>
+        <%var dessrno=0;%>
+        <%var dist=0;%>
+
+    <%if(result==true) {%>
+                        <% for(var i = 0;i < res1.length;i++) { %>
+                        <% for(var j = 0;j < res2.length;j++) { %>
+                        <% if(res1[i].rtno==res2[j].rtno) {%>
+                        <% rt=res1[i].rtno%>
+                        <% srcsrno=res1[i].srno%>
+                        <% dessrno=res2[j].srno%>
+                        <% arrow =0%>
+
+                        <div id="l1" style="margin-top: 10%;">
+                            <h2>Route No-<%=res1[i].rtno%>_<%=res1[i].stpnm%>_To_<%=res2[j].stpnm%></h2>
+                         <div class="panel-group">
+                       <div class="panel panel-default">
+                        <div class="panel-heading" style="color: white;background-color: #c7254e">
+                        <div class="panel-title">
+                       <a data-toggle="collapse" href="#<%=rt%>">Show Stops
+                               <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span></a>
+                        </div>
+                           <div id="<%=rt%>" class="panel-collapse collapse">
+                               <div class="panel-body">
+                                   <table style="color: white" width="50%" cellspacing="20px">
+                                   <% for (var c=0;c<stops.length;c++) {%>
+                                       <%if (arrow==30){%>
+                                       <%arrow=0; %>
+                                       <%}%>
+                                   <% if(rt==stops[c].rtno) { %>
+
+                                       <% if(stops[c].stpnm == res1[i].stpnm || stops[c].stpnm == res2[j].stpnm && arrow==10) { arrow=30; }%>
+                                       <% if(stops[c].stpnm == res1[i].stpnm || stops[c].stpnm == res2[j].stpnm && arrow==0) { arrow=10; }%>
+
+
+
+
+                                       <% if(arrow==10) { %>
+                                       <tr><td style="color: black"><%=stops[c].srno%></td><td style="color: black"><%=stops[c].stpnm%></td></tr>
+                                       <%}%>
+                                       <% if(arrow==0 || arrow==30) { %>
+                                       <tr><td style="color: white"><%=stops[c].srno%></td><td style="color: white"><%=stops[c].stpnm%></td></tr>
+                                       <%}%>
+                                       <%}%>
+
+                                                <%}%>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                         </div>
+                        </div>
+        <div id="l2">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="color: white;background-color: #c7254e">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#<%=rt+500%>">Show Departure Time from Source
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span></a>
+                </div>
+                <div id="<%=rt+500%>" class="panel-collapse collapse">
+                    <div class="panel-body">
+                            <% for (var c=0;c<data1.length;c++) {%>
+                            <% if(rt==data1[c].rtno) { %>
+                        <table><tr><%=data1[c].tm%></tr> </table>
+                            <%}%>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div id="l3">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="color: white;background-color: #c7254e">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#<%=rt+1000%>">Show Depature Time From Destination
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span></a>
+                </div>
+                </div>
+                <div id="<%=rt+1000%>" class="panel-collapse collapse">
+                    <div class="panel-body">
+                            <% for (var c=0;c<data2.length;c++) {%>
+                            <% if(rt==data2[c].rtno) { %>
+                        <table> <tr><%=data2[c].tm%></tr></table>
+                            <%}%>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div id="l4">
+            <form method="post" action="/customer/show">
+                    <%if(srcsrno>dessrno) dist=srcsrno-dessrno; else dist=dessrno-srcsrno;%>
+                    <input type="hidden" value="<%=dist%>" name="dist">
+                <input type="hidden" value="<%=rt%>" name="rtno">
+                <input type="hidden" value="<%=res1[i].stpnm%>" name="src">
+                <input type="hidden" value="<%=res2[j].stpnm%>" name="des">
+                <input type="hidden" value="<%=id%>" name="id">
+
+                <%var ticketcost=0;%>
+                <%if (dist<=5) ticketcost=5; else if(dist<=10) ticketcost=10; else if(dist<=15) ticketcost=15; else if(dist<=20) ticketcost=20; else if(dist<=25) ticketcost=25; else if(dist<=30) ticketcost=30; else if(dist<=35) ticketcost=35; else if(dist<=40) ticketcost=40; else if(dist<=45) ticketcost=45; else if(dist<=50) ticketcost=50;%>
+                Rs <%=ticketcost%>
+                <button id="llb">Show My Ticket</button>
+            </form>
+        </div>
+
+                         <%}%>
+                        <%}%>
+                        <%}%>
+    <%}%>
+</div>
+</div>
+        </div>
+    </div>
+        </div>
+</div>
+
+<%}%>
+    <%if(myticket==true) {%>
+    <%if(activity==true) {%>
+    <script>
+        alert("<%=error%>");
+    </script>
+    <%}%>
+    <div class="w3layouts-banner-top w3layouts-banner-top1">
+        <div class="banner-dott">
+            <div class="container">
+    <div id="top">
+        <table border="2"><tr> <th>Source</th>
+        <th>Destination</th>
+        <th>Ticket Cost</th>
+        <th>Travel Date</th>
+        <th>Booking Date</th></tr>
+        <% for (var c=data.length-1;c>-1;c--) {%>
+        <tr>
+            <td><%=data[c].src%></td>
+            <td><%=data[c].des%></td>
+            <td><%=data[c].tcost%></td>
+                <td><%=data[c].dt%></td>
+                <td><%=data[c].bdt%></td>
+                <td><img id="brcode" src="https://chart.googleapis.com/chart?cht=qr&chl=<%=data[c].tid%>&chs=100x100&chld=L|0"></td></tr>
+        <%}%>
+        </table>
+    </div>
+                    </div></div></div>
+    <%}%>
+
+</div>
+
+<%if(timetable==true) {%>
+<div id="top">
+    <table style="margin-left: 100px;" z>
+        <tr>
+            <td><label>Route No:</label>
+            </td>
+            <td>
+                <form action="/customer/timetable" method="post">
+                <select name="rtno" onchange=" this.form.submit()">
+                    <option value="0" selected>(please select:)</option>
+                    <% for(var i=0; i < bus.length; i++) { %>
+                    <option value="<%=bus[i].rtno%>"> <%=bus[i].rtno%> </option>
+                    <% } %>
+                </select>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="bottom">
+    <div id="l1">
+        <table cellspacing="1px" align="center"  width="100%"><tr><td><b>Sr.No.</b></td><td><b>Stop Name</b></td></tr>
+        <% for (var c=0;c<stops.length;c++) {%>
+        <tr><td><%=stops[c].srno%></td><td><%=stops[c].stpnm%></td></tr>
+                            <%}%>
+        </table>
+    </div>
+
+    <div id="l2">
+                            <% for (var c=0;c<data1.length;c++) {%>
+                            <table><tr><%=data1[c].tm%></tr></table>
+                            <%}%>
+
+    </div>
+    <div id="l3">
+                            <% for (var c=0;c<data2.length;c++) {%>
+                            <table><tr><%=data2[c].tm%></tr></table>
+                            <%}%>
+                            </div>
+</div>
+<%}%>
+</html>
